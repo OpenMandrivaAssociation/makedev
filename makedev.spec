@@ -10,7 +10,7 @@ Version:	4.4
 Release:	%mkrel 2
 Group:		System/Kernel and hardware
 License:	GPL
-URL:		http://cvs.mandrakesoft.com/cgi-bin/cvsweb.cgi/soft/makedev/
+URL:		http://cvs.mandriva.com/cgi-bin/cvsweb.cgi/soft/makedev/
 Source:		%{name}-%{version}.tar.bz2
 Requires(pre):	/usr/sbin/groupadd, /usr/sbin/useradd, sed, coreutils, mktemp
 Requires:	bash, perl-base
@@ -27,10 +27,10 @@ correspond to a particular device supported by Linux (serial or printer
 ports, scanners, sound cards, tape drives, CD-ROM drives, hard drives,
 etc.) and interface with the drivers in the kernel.
 
-The makedev package is a basic part of your Mandrakelinux system and it needs
+The makedev package is a basic part of your Mandriva Linux system and it needs
 to be installed.
 
-#The Mandrakelinux operating system uses file system entries to represent
+#The Mandriva Linux operating system uses file system entries to represent
 #devices (CD-ROMs, floppy drives, etc.) attached to the machine. All of
 #these entries are in the /dev tree (although they don't have to be).
 #This package contains the most commonly used /dev entries.

@@ -17,7 +17,6 @@ Requires:	bash, perl-base
 Provides:	dev, MAKEDEV
 Obsoletes:	dev, MAKEDEV
 BuildArch:	noarch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 # coreutils => /bin/mkdir
 
 %description

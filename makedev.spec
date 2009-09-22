@@ -7,7 +7,7 @@
 Summary:	A program used for creating the device files in /dev
 Name:		makedev
 Version:	4.4
-Release:	%mkrel 7
+Release:	%mkrel 8
 Group:		System/Kernel and hardware
 License:	GPL
 URL:		http://cvs.mandriva.com/cgi-bin/cvsweb.cgi/soft/makedev/
@@ -87,7 +87,7 @@ else
 		chown root.root $DEV_DIR/null
 	done
 
-	[[ -x /sbin/pam_console_apply ]] && /sbin/pam_console_apply
+	[[ -x /sbin/pam_console_apply ]] && /sbin/pam_console_apply &>/dev/null
 fi
 :
 
@@ -109,7 +109,7 @@ if [ ! -e /dev/.devfsd -a ! -e /dev/.udev.tdb -a ! -d /dev/.udevdb/ ]; then
 		chown root.root $DEV_DIR/null
 	done
 
-	[[ -x /sbin/pam_console_apply ]] && /sbin/pam_console_apply
+	[[ -x /sbin/pam_console_apply ]] && /sbin/pam_console_apply &>/dev/null
 fi
 :
 

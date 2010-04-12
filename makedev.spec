@@ -56,17 +56,17 @@ mkdir -p %{buildroot}%{devrootdir}
   -s /sbin/nologin -r -d /dev vcsa 2> /dev/null || :
 
 #- when devfs or udev are used, upgrade and install can be done easily :)
-if [[ -e /dev/.devfsd ]] || [[ -e /dev/.udev.tdb ]] || [[ -d /dev/.udevdb/ ]]; then
-	[[ -d %{devrootdir} ]] || mkdir %{devrootdir}
+if [ -e /dev/.devfsd ] || [ -e /dev/.udev.tdb ] || [ -d /dev/.udevdb/ ]; then
+	[ -d %{devrootdir} ] || mkdir %{devrootdir}
 	mount --bind / %{devrootdir}
 	DEV_DIR=%{devrootdir}/dev
      
-     [[ -L $DEV_DIR/snd ]] && rm -f $DEV_DIR/snd
+     [ -L $DEV_DIR/snd ] && rm -f $DEV_DIR/snd
 	mkdir -p $DEV_DIR/{pts,shm}
 	/sbin/makedev $DEV_DIR
 
 	# race 
-	while [[ ! -c $DEV_DIR/null ]]; do
+	while [ ! -c $DEV_DIR/null ]; do
 		rm -f $DEV_DIR/null
 		mknod -m 0666 $DEV_DIR/null c 1 3
 		chown root.root $DEV_DIR/null
@@ -77,17 +77,17 @@ if [[ -e /dev/.devfsd ]] || [[ -e /dev/.udev.tdb ]] || [[ -d /dev/.udevdb/ ]]; t
 else
 	DEV_DIR=/dev
 	mkdir -p $DEV_DIR/{pts,shm}
-     [[ -L $DEV_DIR/snd ]] && rm -f $DEV_DIR/snd
+     [ -L $DEV_DIR/snd ] && rm -f $DEV_DIR/snd
 	/sbin/makedev $DEV_DIR
 
 	# race 
-	while [[ ! -c $DEV_DIR/null ]]; do
+	while [ ! -c $DEV_DIR/null ]; do
 		rm -f $DEV_DIR/null
 		mknod -m 0666 $DEV_DIR/null c 1 3
 		chown root.root $DEV_DIR/null
 	done
 
-	[[ -x /sbin/pam_console_apply ]] && /sbin/pam_console_apply &>/dev/null
+	[ -x /sbin/pam_console_apply ] && /sbin/pam_console_apply &>/dev/null
 fi
 :
 
@@ -99,17 +99,17 @@ if [ ! -e /dev/.devfsd -a ! -e /dev/.udev.tdb -a ! -d /dev/.udevdb/ ]; then
 	#- doing the same when upgrading from new dev pkg
 	DEV_DIR=/dev
 	mkdir -p $DEV_DIR/{pts,shm}
-     [[ -L $DEV_DIR/snd ]] && rm -f $DEV_DIR/snd
+     [ -L $DEV_DIR/snd ] && rm -f $DEV_DIR/snd
 	/sbin/makedev $DEV_DIR
 
 	# race 
-	while [[ ! -c $DEV_DIR/null ]]; do
+	while [ ! -c $DEV_DIR/null ]; do
 		rm -f $DEV_DIR/null
 		mknod -m 0666 $DEV_DIR/null c 1 3
 		chown root.root $DEV_DIR/null
 	done
 
-	[[ -x /sbin/pam_console_apply ]] && /sbin/pam_console_apply &>/dev/null
+	[ -x /sbin/pam_console_apply ] && /sbin/pam_console_apply &>/dev/null
 fi
 :
 

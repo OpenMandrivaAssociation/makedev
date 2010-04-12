@@ -7,7 +7,7 @@
 Summary:	A program used for creating the device files in /dev
 Name:		makedev
 Version:	4.4
-Release:	%mkrel 9
+Release:	%mkrel 10
 Group:		System/Kernel and hardware
 License:	GPL
 URL:		http://cvs.mandriva.com/cgi-bin/cvsweb.cgi/soft/makedev/
@@ -56,7 +56,7 @@ mkdir -p %{buildroot}%{devrootdir}
   -s /sbin/nologin -r -d /dev vcsa 2> /dev/null || :
 
 #- when devfs or udev are used, upgrade and install can be done easily :)
-if [ -e /dev/.devfsd ] || [ -e /dev/.udev.tdb ] || [ -d /dev/.udevdb/ ]; then
+if [ -e /dev/.devfsd ] || [ -e /dev/.udev.tdb ] || [ -d /dev/.udevdb/ ] || [ -d /dev/.udev/ ]; then
 	[ -d %{devrootdir} ] || mkdir %{devrootdir}
 	mount --bind / %{devrootdir}
 	DEV_DIR=%{devrootdir}/dev
@@ -94,7 +94,7 @@ fi
 
 %triggerpostun -- dev
 
-if [ ! -e /dev/.devfsd -a ! -e /dev/.udev.tdb -a ! -d /dev/.udevdb/ ]; then
+if [ ! -e /dev/.devfsd -a ! -e /dev/.udev.tdb -a ! -d /dev/.udevdb/ -a ! -d /dev/.udev/ ]; then
 	#- when upgrading from old dev pkg to makedev pkg, this can't be done in %%post
 	#- doing the same when upgrading from new dev pkg
 	DEV_DIR=/dev

@@ -12,7 +12,7 @@ Group:		System/Kernel and hardware
 License:	GPL
 URL:		http://cvs.mandriva.com/cgi-bin/cvsweb.cgi/soft/makedev/
 Source:		%{name}-%{version}.tar.bz2
-Requires(pre):	/usr/sbin/groupadd, /usr/sbin/useradd, sed, coreutils, mktemp
+Requires(pre):	shadow-utils, sed, coreutils, mktemp
 Requires:	bash, perl-base
 Provides:	dev, MAKEDEV
 Obsoletes:	dev, MAKEDEV

@@ -13,6 +13,7 @@ License:	GPL
 URL:		http://cvs.mandriva.com/cgi-bin/cvsweb.cgi/soft/makedev/
 Source:		%{name}-%{version}.tar.bz2
 Requires(pre):	shadow-utils, sed, coreutils, mktemp
+Requires(post): perl(MDK::Common)
 Requires:	bash, perl-base
 Provides:	dev, MAKEDEV
 Obsoletes:	dev, MAKEDEV

@@ -7,18 +7,17 @@
 Summary:	A program used for creating the device files in /dev
 Name:		makedev
 Version:	4.4
-Release:	13
+Release:	14
 Group:		System/Kernel and hardware
 License:	GPL
 URL:		http://cvs.mandriva.com/cgi-bin/cvsweb.cgi/soft/makedev/
 Source:		%{name}-%{version}.tar.bz2
-Requires(pre):	shadow-utils, sed, coreutils, mktemp
+Requires(pre):	shadow-utils, sed, coreutils, mktemp, /bin/mount
 Requires(post): perl(MDK::Common)
-Requires:	bash, perl-base
+Requires:	bash
 Provides:	dev, MAKEDEV
 Obsoletes:	dev, MAKEDEV
 BuildArch:	noarch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 # coreutils => /bin/mkdir
 
 %description
@@ -48,9 +47,6 @@ to be installed.
 
 mkdir -p %{buildroot}%{devrootdir}
 %makeinstall_std
-
-%clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 
 %post
 /usr/sbin/useradd -c "virtual console memory owner" -u 69 \
@@ -92,7 +88,6 @@ else
 fi
 :
 
-
 %triggerpostun -- dev
 
 if [ ! -e /dev/.devfsd -a ! -e /dev/.udev.tdb -a ! -d /dev/.udevdb/ -a ! -d /dev/.udev/ ]; then
@@ -114,15 +109,13 @@ if [ ! -e /dev/.devfsd -a ! -e /dev/.udev.tdb -a ! -d /dev/.udevdb/ -a ! -d /dev
 fi
 :
 
-
 %files
-%defattr(644,root,root,755)
 %doc COPYING devices.txt README
-%{_mandir}/*/*
 %attr(755,root,root) /sbin/%{name}
 %dir %{_sysconfdir}/makedev.d/
 %config(noreplace) %{_sysconfdir}/makedev.d/*
 %dir /dev
 %dir %{devrootdir}
+%{_mandir}/*/*
 
 

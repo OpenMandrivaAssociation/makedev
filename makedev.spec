@@ -7,13 +7,13 @@
 Summary:	A program used for creating the device files in /dev
 Name:		makedev
 Version:	4.4
-Release:	14
+Release:	15
 Group:		System/Kernel and hardware
 License:	GPL
 URL:		http://cvs.mandriva.com/cgi-bin/cvsweb.cgi/soft/makedev/
 Source:		%{name}-%{version}.tar.bz2
 Requires(pre):	coreutils, mktemp
-Requires(post): perl(MDK::Common), shadow-utils, sed, /bin/mount
+Requires(post): perl(MDK::Common), shadow-utils, sed, util-linux
 Requires:	bash
 Provides:	dev, MAKEDEV
 Obsoletes:	dev, MAKEDEV

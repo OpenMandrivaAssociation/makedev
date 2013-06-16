@@ -7,16 +7,21 @@
 Summary:	A program used for creating the device files in /dev
 Name:		makedev
 Version:	4.4
-Release:	15
+Release:	16
 Group:		System/Kernel and hardware
 License:	GPL
 URL:		http://cvs.mandriva.com/cgi-bin/cvsweb.cgi/soft/makedev/
-Source:		%{name}-%{version}.tar.bz2
-Requires(pre):	coreutils, mktemp
-Requires(post): perl(MDK::Common), shadow-utils, sed, util-linux
+Source0:	%{name}-%{version}.tar.bz2
+Requires(pre):	coreutils
+Requires(post):	perl(MDK::Common)
+Requires(post):	shadow-utils
+Requires(post):	sed
+Requires(post):	util-linux
 Requires:	bash
-Provides:	dev, MAKEDEV
-Obsoletes:	dev, MAKEDEV
+Provides:	dev
+Provides:	MAKEDEV
+Obsoletes:	dev < 4.4-16
+Obsoletes:	MAKEDEV < 4.4-16
 BuildArch:	noarch
 # coreutils => /bin/mkdir
 
@@ -39,12 +44,13 @@ to be installed.
 %setup -q
 
 %build
+%global optflags %{optflags} -Os
+%setup_compile_flags
+
 # Generate the config scripts
 %make
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
-
 mkdir -p %{buildroot}%{devrootdir}
 %makeinstall_std
 

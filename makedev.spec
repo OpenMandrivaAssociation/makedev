@@ -69,11 +69,9 @@ fi
 
 %files
 %doc COPYING devices.txt README
+%{_mandir}/*/*
 %attr(755,root,root) /sbin/%{name}
 %dir %{_sysconfdir}/makedev.d/
 %config(noreplace) %{_sysconfdir}/makedev.d/*
 %dir /dev
-%dir %{devrootdir}
-%{_mandir}/*/*
-
 

@@ -1,6 +1,3 @@
-# synced with rh-3.3.1-1
-
-%define devrootdir /lib/root-mirror
 %define dev_lock /var/lock/subsys/dev
 %define makedev_lock /var/lock/subsys/makedev
 
@@ -35,11 +32,6 @@ etc.) and interface with the drivers in the kernel.
 The makedev package is a basic part of your Mandriva Linux system and it needs
 to be installed.
 
-#The Mandriva Linux operating system uses file system entries to represent
-#devices (CD-ROMs, floppy drives, etc.) attached to the machine. All of
-#these entries are in the /dev tree (although they don't have to be).
-#This package contains the most commonly used /dev entries.
-
 %prep
 %setup -q
 
@@ -51,54 +43,14 @@ to be installed.
 %make
 
 %install
-mkdir -p %{buildroot}%{devrootdir}
 %makeinstall_std
 
 %post
 /usr/sbin/useradd -c "virtual console memory owner" -u 69 \
   -s /sbin/nologin -r -d /dev vcsa 2> /dev/null || :
 
-#- when devfs or udev are used, upgrade and install can be done easily :)
-if [ -e /dev/.devfsd ] || [ -e /dev/.udev.tdb ] || [ -d /dev/.udevdb/ ] || [ -d /dev/.udev/ ]; then
-	[ -d %{devrootdir} ] || mkdir %{devrootdir}
-	mount --bind / %{devrootdir}
-	DEV_DIR=%{devrootdir}/dev
-     
-     [ -L $DEV_DIR/snd ] && rm -f $DEV_DIR/snd
-	mkdir -p $DEV_DIR/{pts,shm}
-	/sbin/makedev $DEV_DIR
-
-	# race 
-	while [ ! -c $DEV_DIR/null ]; do
-		rm -f $DEV_DIR/null
-		mknod -m 0666 $DEV_DIR/null c 1 3
-		chown root.root $DEV_DIR/null
-	done
-
-	umount -f %{devrootdir} 2> /dev/null
-#- case when makedev is being installed, not upgraded
-else
-	DEV_DIR=/dev
-	mkdir -p $DEV_DIR/{pts,shm}
-     [ -L $DEV_DIR/snd ] && rm -f $DEV_DIR/snd
-	/sbin/makedev $DEV_DIR
-
-	# race 
-	while [ ! -c $DEV_DIR/null ]; do
-		rm -f $DEV_DIR/null
-		mknod -m 0666 $DEV_DIR/null c 1 3
-		chown root.root $DEV_DIR/null
-	done
-
-	[ -x /sbin/pam_console_apply ] && /sbin/pam_console_apply &>/dev/null
-fi
-:
-
-%triggerpostun -- dev
-
-if [ ! -e /dev/.devfsd -a ! -e /dev/.udev.tdb -a ! -d /dev/.udevdb/ -a ! -d /dev/.udev/ ]; then
-	#- when upgrading from old dev pkg to makedev pkg, this can't be done in %%post
-	#- doing the same when upgrading from new dev pkg
+# If /dev is a devtmpfs, we don't need to do anything
+if ! df /dev | grep -q /dev$ || ! mount | grep -q ' /dev type devtmpfs '; then
 	DEV_DIR=/dev
 	mkdir -p $DEV_DIR/{pts,shm}
      [ -L $DEV_DIR/snd ] && rm -f $DEV_DIR/snd

@@ -6,9 +6,10 @@ Name:		makedev
 Version:	4.4
 Release:	16
 Group:		System/Kernel and hardware
-License:	GPL
-URL:		http://cvs.mandriva.com/cgi-bin/cvsweb.cgi/soft/makedev/
+License:	GPLv2
+Url:		http://cvs.mandriva.com/cgi-bin/cvsweb.cgi/soft/makedev/
 Source0:	%{name}-%{version}.tar.bz2
+BuildArch:	noarch
 Requires(pre):	coreutils
 Requires(post):	perl(MDK::Common)
 Requires(post):	shadow-utils
@@ -17,9 +18,6 @@ Requires(post):	util-linux
 Requires:	bash
 Provides:	dev
 Provides:	MAKEDEV
-Obsoletes:	dev < 4.4-16
-Obsoletes:	MAKEDEV < 4.4-16
-BuildArch:	noarch
 # coreutils => /bin/mkdir
 
 %description

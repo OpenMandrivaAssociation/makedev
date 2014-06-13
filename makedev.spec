@@ -4,7 +4,7 @@
 Summary:	A program used for creating the device files in /dev
 Name:		makedev
 Version:	4.4
-Release:	21
+Release:	22
 Group:		System/Kernel and hardware
 License:	GPLv2
 Url:		http://cvs.mandriva.com/cgi-bin/cvsweb.cgi/soft/makedev/

@@ -7,7 +7,7 @@ Version:	4.4
 Release:	22
 Group:		System/Kernel and hardware
 License:	GPLv2
-Url:		http://cvs.mandriva.com/cgi-bin/cvsweb.cgi/soft/makedev/
+Url:		https://cvs.mandriva.com/cgi-bin/cvsweb.cgi/soft/makedev/
 Source0:	%{name}-%{version}.tar.bz2
 BuildArch:	noarch
 Requires(pre):	coreutils

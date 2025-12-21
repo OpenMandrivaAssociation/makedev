@@ -22,6 +22,7 @@ Requires:	bash
 #Provides:	MAKEDEV
 # coreutils => /bin/mkdir
 
+BuildRequires:	make
 %description
 This package contains the makedev program, which makes it easier to create
 and maintain the files in the /dev directory.  /dev directory files
